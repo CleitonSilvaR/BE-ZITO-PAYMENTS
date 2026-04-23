@@ -5,6 +5,7 @@ import { GatewayConfig, Project } from '../payments/payment.types';
 export async function findProjectByApiKey(
   apiKey: string
 ): Promise<Project | null> {
+  console.log('[findProjectByApiKey] buscando api_key:', apiKey);
   const { data, error } = await supabase
     .schema('payments')
     .from('projects')
@@ -12,6 +13,7 @@ export async function findProjectByApiKey(
     .eq('api_key', apiKey)
     .single();
 
+  console.log('[findProjectByApiKey] data:', data, 'error:', error);
   if (error || !data) return null;
   return data as Project;
 }

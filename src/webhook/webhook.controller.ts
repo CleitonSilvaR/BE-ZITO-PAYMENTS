@@ -11,7 +11,7 @@ import {
 export async function handleWebhook(req: Request, res: Response): Promise<void> {
   const gatewayParam = req.params['gateway'];
   const gateway = Array.isArray(gatewayParam) ? gatewayParam[0] : gatewayParam;
-  const projectIdHeader = req.headers['x-project-id'];
+  const projectIdHeader = req.headers['x-project-id'] ?? req.query['project_id'];
   const projectId = Array.isArray(projectIdHeader) ? projectIdHeader[0] : projectIdHeader;
 
   if (!projectId) {
