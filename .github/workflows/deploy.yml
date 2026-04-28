@@ -27,6 +27,18 @@ jobs:
       - name: Type check
         run: npx tsc --noEmit
 
+      - name: Run Supabase migrations
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Apply migrations
+        run: |
+          supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
+          supabase db push --linked --include-all
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN_PAYMENT }}
+
       - name: Deploy to Railway
         run: |
           npm install -g @railway/cli
