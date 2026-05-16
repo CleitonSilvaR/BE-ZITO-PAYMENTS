@@ -4,6 +4,7 @@ import path from 'node:path';
 import checkoutRoute from './routes/checkout.route';
 import subscriptionRoute from './routes/subscription.route';
 import webhookRoute from './routes/webhook.route';
+import payRoute from './routes/pay.route';
 
 const app = express();
 const PORT = process.env.PORT ?? 3001;
@@ -28,6 +29,7 @@ app.get('/cancelado', (_req, res) => {
 
 app.use('/checkout', checkoutRoute);
 app.use('/subscription', subscriptionRoute);
+app.use('/pay', payRoute);
 
 app.listen(PORT, () => {
   console.log(`BE-ZITO-PAYMENTS running on port ${PORT}`);
